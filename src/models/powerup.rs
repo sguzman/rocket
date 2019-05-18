@@ -55,7 +55,7 @@ impl Powerup {
     }
 
     pub fn update(&mut self, elapsed_time: f32) {
-        self.ttl -= elapsed_time;
+        self.ttl = 0.0;
         self.color = if self.color < u8::max_value() {
             self.color + 1
         } else {

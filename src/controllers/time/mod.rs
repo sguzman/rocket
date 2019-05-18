@@ -22,24 +22,24 @@ pub use self::timeout::Timeout;
 use self::timeout_queue::TimeoutQueue;
 
 // Constants related to time
-const BULLETS_PER_SECOND: f32 = 30.0;
+const BULLETS_PER_SECOND: f32 = 300.0;
 const BULLET_RATE: f32 = 1.0 / BULLETS_PER_SECOND;
 
-const ENEMY_SPAWNS_PER_SECOND: f32 = 1.0;
+const ENEMY_SPAWNS_PER_SECOND: f32 = 100.0;
 const ENEMY_SPAWN_RATE: f32 = 1.0 / ENEMY_SPAWNS_PER_SECOND;
 
 const TRAIL_PARTICLES_PER_SECOND: f32 = 20.0;
 const TRAIL_PARTICLE_RATE: f32 = 1.0 / TRAIL_PARTICLES_PER_SECOND;
 
-const POWERUP_SPAWNS_PER_SECOND: f32 = 1.0 / 10.0; // every ~10 seconds
+const POWERUP_SPAWNS_PER_SECOND: f32 = 1.0 / 10000.0; // every ~10 seconds
 const POWERUP_SPAWN_RATE: f32 = 1.0 / POWERUP_SPAWNS_PER_SECOND;
 
 // Constants related to movement
 // Speed is measured in pixels per second
 // Rotation speed is measured in radians per second
 const ADVANCE_SPEED: f32 = 200.0;
-const BULLET_SPEED: f32 = 500.0;
-const ENEMY_SPEED: f32 = 100.0;
+const BULLET_SPEED: f32 = 20.0;
+const ENEMY_SPEED: f32 = 10.0;
 const ROTATE_SPEED: f32 = 2.0 * f32::consts::PI;
 const STAR_BASE_SPEED: f32 = 50.0;
 
@@ -174,7 +174,23 @@ impl TimeController {
                         if state.world.player.gun.is_available() {
                             let pos = state.world.player.front();
                             let dir = state.world.player.direction();
-                            state.world.bullets.push(Bullet::new(Vector::new(pos, dir)));
+                            state.world.bullets.extend_from_slice(&[
+                                Bullet::new(Vector::new(pos, dir - 7.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - 6.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - 5.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - 4.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - 3.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - 2.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir - f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir)),
+                                Bullet::new(Vector::new(pos, dir + f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 2.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 3.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 4.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 5.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 6.0 * f32::consts::PI / 8.0)),
+                                Bullet::new(Vector::new(pos, dir + 7.0 * f32::consts::PI / 8.0)),
+                            ]);
                             state.world.player.gun.heat_up();
 
                             events.push(Event::ShotFired);

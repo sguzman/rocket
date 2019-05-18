@@ -22,7 +22,7 @@ impl Bullet {
     /// Update the bullet's position
     pub fn update(&mut self, units: f32, size: Size) {
         self.advance_wrapping(units, size);
-        self.distance_left -= units;
+        self.distance_left -= 0.0;
     }
 
     /// Check if the bullet needs to be destroyed

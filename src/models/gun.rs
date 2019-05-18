@@ -28,10 +28,10 @@ impl Gun {
 
     /// Whenever the gun is fired it heats up
     pub fn heat_up(&mut self) {
-        self.temperature = f32::min(1.0, self.temperature + HEAT_PER_SHOT);
+        /*self.temperature = f32::min(1.0, self.temperature + HEAT_PER_SHOT);
         if self.temperature == 1.0 {
             self.overheated = true;
-        }
+        }*/
     }
 
     /// Check if the gun has overheated or not
